@@ -1,10 +1,9 @@
 import { View, Text, StyleSheet } from 'react-native'
 import type { ViewStyle } from 'react-native'
-import type { ReactNode } from 'react'
 
 interface Props {
   style?: ViewStyle
-  children: ReactNode
+  children: JSX.Element
 }
 
 export const CircleButton = (props: Props): JSX.Element => {
