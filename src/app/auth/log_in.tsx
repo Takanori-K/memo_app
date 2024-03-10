@@ -1,5 +1,5 @@
 import { View, Text, TextInput, StyleSheet } from 'react-native'
-import { Header } from '../../components'
+import { Header, Button } from '../../components'
 
 const Login = (): JSX.Element => {
   return (
@@ -9,9 +9,7 @@ const Login = (): JSX.Element => {
         <Text style={styles.title}>Login</Text>
         <TextInput style={styles.input} value='Email address' />
         <TextInput style={styles.input} value='Password'/>
-        <View style={styles.button}>
-          <Text style={styles.buttonLabel}>Submit</Text>
-        </View>
+          <Button label='Submit' />
         <View style={styles.footer}>
           <Text style={styles.footerText}>Not registered?</Text>
           <Text style={styles.footerLink}>Sign up here!</Text>
@@ -44,19 +42,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#DDD',
     backgroundColor: 'white'
-  },
-  button: {
-    backgroundColor: '#467FD3',
-    borderRadius: 4,
-    alignSelf: 'flex-start',
-    marginBottom: 24
-  },
-  buttonLabel: {
-    fontSize: 16,
-    lineHeight: 32,
-    color: 'white',
-    paddingVertical: 8,
-    paddingHorizontal: 24
   },
   footer: {
     flexDirection: 'row'
