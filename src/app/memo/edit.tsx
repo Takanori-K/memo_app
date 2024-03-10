@@ -5,7 +5,7 @@ import {
   StyleSheet
 } from 'react-native'
 import { router } from 'expo-router'
-import { Header, CircleButton, Icon } from '../../components'
+import { CircleButton, Icon } from '../../components'
 
 const handlePress = (): void => {
   router.back()
@@ -14,7 +14,6 @@ const handlePress = (): void => {
 const Edit = (): JSX.Element => {
   return (
     <KeyboardAvoidingView behavior='height' style={styles.container}>
-      <Header />
       <View style={styles.inputContainer}>
         <TextInput style={styles.input} multiline value={'買い物\nリスト'} />
       </View>

@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, StyleSheet } from 'react-native'
 import { router } from 'expo-router'
-import { Header, CircleButton, Icon } from '../../components'
+import { CircleButton, Icon } from '../../components'
 
 const handlePress = (): void => {
   router.push('/memo/edit')
@@ -9,7 +9,6 @@ const handlePress = (): void => {
 const Detail = (): JSX.Element => {
   return (
     <View style={styles.container}>
-      <Header />
       <View style={styles.memoHeader}>
         <Text style={styles.memoTitle}>買い物リスト</Text>
         <Text style={styles.memoDate}>2024年3月15日 18:00</Text>
@@ -61,7 +60,7 @@ const styles = StyleSheet.create({
     color: 'black'
   },
   circleButton: {
-    top: 160,
+    top: 60,
     bottom: 'auto'
   }
 })
