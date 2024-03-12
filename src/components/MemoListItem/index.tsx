@@ -10,10 +10,11 @@ import { Icon } from '../Icon'
 import type { Memo } from '../../../types/memo'
 interface Props {
   memo: Memo
+  onPress: (id: string) => void
 }
 
 export const MemoListItem = (props: Props): JSX.Element | null => {
-  const { memo } = props
+  const { memo, onPress } = props
   const { bodyText, updatedAt } = memo
   if (bodyText === null || updatedAt === null) return null
   const dateString = updatedAt.toDate().toLocaleString('ja-JP')
@@ -27,7 +28,7 @@ export const MemoListItem = (props: Props): JSX.Element | null => {
           <Text style={styles.memoListItemTitle} numberOfLines={1}>{bodyText}</Text>
           <Text style={styles.memoListItemDate}>{dateString}</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => { onPress(memo.id) } }>
           <Icon name='delete' size={32} color='#B0B0B0' />
         </TouchableOpacity>
       </TouchableOpacity>

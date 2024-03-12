@@ -1,7 +1,6 @@
 import {
   View,
   TextInput,
-  KeyboardAvoidingView,
   StyleSheet,
   Alert
 } from 'react-native'
@@ -9,7 +8,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { router, useLocalSearchParams } from 'expo-router'
 import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore'
 import { db, auth } from '../../config'
-import { CircleButton, Icon } from '../../components'
+import { CircleButton, Icon, KeyboardSafeView } from '../../components'
 
 const Edit = (): JSX.Element => {
   const { id } = useLocalSearchParams()
@@ -42,11 +41,12 @@ const Edit = (): JSX.Element => {
       })
   }, [bodyText, auth, id])
   return (
-    <KeyboardAvoidingView behavior='height' style={styles.container}>
+    <KeyboardSafeView style={styles.container}>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
           multiline
+          autoFocus
           value={bodyText}
           onChangeText={(text) => { setBodyText(text) }}
         />
@@ -54,7 +54,7 @@ const Edit = (): JSX.Element => {
       <CircleButton onPress={handlePress}>
         <Icon name='check' size={40} color='white' />
       </CircleButton>
-    </KeyboardAvoidingView>
+    </KeyboardSafeView>
   )
 }
 

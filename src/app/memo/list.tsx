@@ -1,7 +1,7 @@
-import { View, StyleSheet, FlatList } from 'react-native'
-import { useEffect, useState } from 'react'
+import { View, StyleSheet, FlatList, Alert } from 'react-native'
+import { useEffect, useState, useCallback } from 'react'
 import { router, useNavigation } from 'expo-router'
-import { collection, onSnapshot, query, orderBy } from 'firebase/firestore'
+import { collection, onSnapshot, query, orderBy, deleteDoc, doc } from 'firebase/firestore'
 import { db, auth } from '../../config'
 import { MemoListItem, CircleButton, Icon, LogOutButton } from '../../components'
 
@@ -38,10 +38,33 @@ const List = (): JSX.Element => {
     })
     return unsubscribe
   }, [])
+
+  const handlePressDelete = useCallback((id: string) => {
+    if (auth.currentUser === null) return
+    const ref = doc(db, `users/${auth.currentUser.uid}/memos`, String(id))
+    Alert.alert('メモを削除します。', 'よろしいですか？', [
+      {
+        text: 'キャンセル'
+      },
+      {
+        text: '削除する',
+        style: 'destructive',
+        onPress: () => {
+          deleteDoc(ref)
+            .catch(() => {
+              Alert.alert('削除に失敗しました。')
+            })
+        }
+      }
+    ])
+  }, [])
   return (
     <View style={styles.container}>
-      <FlatList data={memos} renderItem={({ item }) => <MemoListItem memo={item} />} />
-      < CircleButton onPress={handlePress}>
+      <FlatList
+        data={memos}
+        renderItem={({ item }) => <MemoListItem memo={item} onPress={handlePressDelete} />}
+      />
+      <CircleButton onPress={handlePress}>
         <Icon name='plus' size={40} color='white' />
       </CircleButton>
     </View>
