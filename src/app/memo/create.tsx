@@ -1,14 +1,13 @@
 import {
   View,
   TextInput,
-  KeyboardAvoidingView,
   StyleSheet,
   Alert
 } from 'react-native'
 import { useState, useCallback } from 'react'
 import { router } from 'expo-router'
 import { collection, addDoc, Timestamp } from 'firebase/firestore'
-import { CircleButton, Icon } from '../../components'
+import { CircleButton, Icon, KeyboardSafeView } from '../../components'
 import { db, auth } from '../../config'
 
 const Create = (): JSX.Element => {
@@ -19,7 +18,7 @@ const Create = (): JSX.Element => {
     const ref = collection(db, `users/${auth.currentUser?.uid}/memos`)
     addDoc(ref, {
       bodyText,
-      updateAt: Timestamp.fromDate(new Date())
+      updatedAt: Timestamp.fromDate(new Date())
     })
       .then((docRef) => {
         console.log('success', docRef)
@@ -31,11 +30,12 @@ const Create = (): JSX.Element => {
       })
   }, [bodyText, auth])
   return (
-    <KeyboardAvoidingView behavior='height' style={styles.container}>
+    <KeyboardSafeView style={styles.container}>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
           multiline
+          autoFocus
           value={bodyText}
           onChangeText={(text) => { setBodyText(text) }}
           />
@@ -43,7 +43,7 @@ const Create = (): JSX.Element => {
       <CircleButton onPress={handlePress}>
         <Icon name='check' size={40} color='white' />
       </CircleButton>
-    </KeyboardAvoidingView>
+    </KeyboardSafeView>
   )
 }
 
