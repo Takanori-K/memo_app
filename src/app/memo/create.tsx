@@ -21,7 +21,6 @@ const Create = (): JSX.Element => {
       updatedAt: Timestamp.fromDate(new Date())
     })
       .then((docRef) => {
-        console.log('success', docRef)
         router.back()
       })
       .catch((error) => {
